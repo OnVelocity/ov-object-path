@@ -9,7 +9,7 @@ describe('ov-object-path', function () {
 	beforeEach(function() {
 		obj = {foo: 'bar', a: {b: {c: 'd'}}, array: [0, 1, 2]};
 	});
-	describe('get(path)', function () {
+	describe('get(object, path)', function () {
 		it('resolves first level property value', function () {
 			expect(path.get(obj, 'foo')).to.equal('bar');
 		});
