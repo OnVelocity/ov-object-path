@@ -1,11 +1,10 @@
-'use strict';
 /*global describe, it, beforeEach*/
 
 var expect = require('chai').expect;
 var path = require('../lib');
 
 describe('ov-object-path', function () {
-	var obj;
+	var obj = null;
 	beforeEach(function() {
 		obj = {foo: 'bar', a: {b: {c: 'd'}}, array: [0, 1, 2]};
 	});
@@ -52,6 +51,20 @@ describe('ov-object-path', function () {
 		it('removes given Array index value', function () {
 			path.set(obj, 'array[0]');
 			expect(obj.array[0]).to.equal(1);
+		});
+		it('updates a null value with an object to satisfy a nested property', function () {
+			obj = {
+				foo: null
+			};
+			path.set(obj, 'foo.bar', true);
+			expect(obj).to.eql({foo: {bar: true}});
+		});
+		it('updates a null value with an Array to satisfy a nested property', function () {
+			obj = {
+				foo: null
+			};
+			path.set(obj, 'foo[0].bar', true);
+			expect(obj).to.eql({foo: [{bar: true}]});
 		});
 	});
 });
